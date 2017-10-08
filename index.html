@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    <div class="container">
+        <div class="row">
+          <form id="form-modelos">
+          <div class="form-group row">
+            <label for="example-text-input" class="col-2 col-form-label">Nome</label>
+            <div class="col-10">
+              <input class="form-control" type="text" id="nome">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="example-date-input" class="col-2 col-form-label">Date</label>
+            <div class="col-10">
+              <input class="form-control" type="date"  id="idade">
+            </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="example-perfil-input" class="col-2 col-form-label">Foto Perfil</label>
+              <div class="col-10">
+                <input class="form-control" type="file"  id="foto">
+              </div>
+            </div>
+
+          <div class="form-group row">
+              <label for="example-resume-input" class="col-3 col-form-label">Resumo</label>
+              <div class="col-10">
+                <textarea id="descricao"></textarea>
+              </div>
+            </div>
+
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="servicos" value="S1"> S1
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="servicos" value="S2"> S2
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="servicos" value="S3"> S3
+            </label>
+          </div>
+          
+          <input class="btn btn-primary" id="btn-save" type="button" value="Input">
+          <input class="btn btn-primary" id="teste" type="button" value="teste">
+          
+        </form>
+        </div>
+
+       
+
+        <div id="view"></div>
+
+        
+    </div>
+
+  <!-- <script src="app/model/ModelModelos.js"></script>
+  <script src="app/controller/ControllerModelos.js"></script>
+  <script src="app/model/ListaModelos.js"></script>
+  <script src="app/view/View.js"></script>
+  <script src="app/view/ModelosView.js"></script>
+
+  <script src="./template/js/index.js"></script>  -->
+
+  <script src="dist/bundle.js"></script>
+  </body>
+</html>
