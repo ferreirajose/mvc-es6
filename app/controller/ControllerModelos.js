@@ -67,8 +67,8 @@ export class ControllerModelos {
             this._getImage(),
             this.servicos()
         );
-
         console.log(m);
+        console.log('jsoe');
         return m;
     };
 

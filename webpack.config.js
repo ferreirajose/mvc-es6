@@ -4,7 +4,7 @@ module.exports = {
     entry: path.resolve(__dirname, "app.js"),
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
+        filename: "app.bundle.js",
     },
     module: {
         rules: [{
@@ -28,15 +28,13 @@ module.exports = {
     resolve: {
         extensions: ['.js',],
     },
+    watch: true,
     devtool: 'source-map',
     devServer: {
-        inline: true,
         contentBase: path.join(__dirname, "dist"),
         compress: true,
-        port: 9000,
-        overlay: {
-            errors: true,
-            warnings: true
-        }
+        inline: true,
+        stats: "errors-only",
+        open: true
     }
 };
