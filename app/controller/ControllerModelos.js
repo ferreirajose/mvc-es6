@@ -8,10 +8,11 @@ export class ControllerModelos {
         this._$ = document.querySelector.bind(document);
         this._nome = this._$('#nome');
         this._idade = this._$('#idade');
+        this._foto = this._$('#foto');
 
         this._descricao = this._$('#descricao');
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
-        console.log(this._servicos);
+        
         this._lista = new ListaModelos();
 
         this._view = new ModelosView(this._$('#view'));
@@ -33,25 +34,32 @@ export class ControllerModelos {
     };
 
     _getImage() {
-        let foto = this._$('#foto');
+
+        var inp = this._foto;
+        var photos = [];
         
-        if(foto.files && foto.files[0]){
+        for (var i = 0; i < inp.files.length; ++i) {
+            var obj = {};
+            obj.name= inp.files.item(i).name;
 
-            let FR = new FileReader();
-
-            FR.addEventListener("load", function(e) {
-                setTimeout(function(){
-                    console.log(e.target.result);
-                    return e.target.result;
-                },2000);
-                
-               
-            }); 
-              
-            FR.readAsDataURL(foto.files[0]);
+            var reader = new FileReader();
             
-            return foto.files[0];
+            reader.onload = function (e) {
+                obj.base64 = reader.result;
+                photos.push(obj);
+               
+            };
+
+            reader.readAsDataURL(inp.files.item(i));        
         }
+
+        // //return photos;
+        // photos = [{
+        //     nome: 'teste',
+        //     url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
+        // }];
+        
+        return photos;
     }
 
     addModelo() {
@@ -60,6 +68,9 @@ export class ControllerModelos {
     };
 
     _criarModelo() {
+        
+        console.log(this._getImage())
+
         let m = new ModelModelos(
             this._nome.value,
             this._idade.value,
@@ -68,7 +79,7 @@ export class ControllerModelos {
             this.servicos()
         );
 
-        console.log(m);
+        console.table(m);
         return m;
     };
 
@@ -79,3 +90,9 @@ export class ControllerModelos {
 
 
 }
+
+
+var foto = [{
+  nome: 'teste',
+  url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
+}];
