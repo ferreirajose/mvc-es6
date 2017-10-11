@@ -38,6 +38,9 @@ export class ControllerModelos {
         var inp = this._foto;
         var photos = [];
         
+        console.log(inp.files.length);
+        console.log(inp.files);
+
         for (var i = 0; i < inp.files.length; ++i) {
             var obj = {};
             obj.name= inp.files.item(i).name;
@@ -53,13 +56,14 @@ export class ControllerModelos {
             reader.readAsDataURL(inp.files.item(i));        
         }
 
-        // //return photos;
-        // photos = [{
+        return photos;
+        // var photos = [{
         //     nome: 'teste',
         //     url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
         // }];
         
-        return photos;
+        // return photos;
+        
     }
 
     addModelo() {
@@ -68,8 +72,7 @@ export class ControllerModelos {
     };
 
     _criarModelo() {
-        
-        console.log(this._getImage())
+       
 
         let m = new ModelModelos(
             this._nome.value,
