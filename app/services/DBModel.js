@@ -1,11 +1,12 @@
 var DBModel = (function(){
-    var stores = ['modelos'];
-    var version = 1;
-    var dbName = 'JM';
+    const stores = ['modelos'];
+    const version = 1;
+    const dbName = 'JM';
 
     var connection = null;
-    
-    return class DBModel {
+    var close = null;
+
+    class DBModel {
     
         constructor() {
     
@@ -22,13 +23,17 @@ var DBModel = (function(){
                 openRequest.onupgradeneeded = e => {
     
                     console.log('cria ou altera uma banco já existente');
-                    this._createStores(connection);
+                    this._createStores(event.target.result);
     
                 };
     
                 openRequest.onsuccess = e => {
                     if(!connection){
                         connection = event.target.result;
+                        close =  connection.close.bind(connection);
+                        connection.close = function(){
+                            throw new Error('Voce não pode fechar essa conecção');
+                        }
                     }
 
                     resolve(connection);
@@ -56,7 +61,17 @@ var DBModel = (function(){
                 connection.createObjectStore(store, { autoIncrement: true });
             });
         }    
+
+        static closeConnection(){
+
+            if(connection){
+                close();
+                connection = null;
+            }
+        }
     }
+
+    exports.DBModel = DBModel;
 
 })();
 

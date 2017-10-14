@@ -1,17 +1,19 @@
 import { ListaModelos, ModelModelos }   from  '../model/index';
 import { DBModel }                      from  '../services/index';
 import { ModelosView }                  from  '../view/index';
+import { ModelosDAO }                   from  '../dao/index';
 
 export class ControllerModelos {
-
+    
     constructor() {
 
         this._$ = document.querySelector.bind(document);
-        this._nome = this._$('#nome');
-        this._idade = this._$('#idade');
+
+        this._nome = this._$('#nome').value;
+        this._idade = this._$('#idade').value;
         this._foto = this._$('#foto');
 
-        this._descricao = this._$('#descricao');
+        this._descricao = this._$('#descricao').value;
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
         
         this._lista = new ListaModelos();
@@ -38,7 +40,7 @@ export class ControllerModelos {
 
         var inp = this._foto;
         var photos = [];
-        
+        var url; 
         console.log(inp.files.length);
         console.log(inp.files);
 
@@ -57,7 +59,7 @@ export class ControllerModelos {
             reader.readAsDataURL(inp.files.item(i));        
         }
 
-        return photos;
+        return url = 'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg';
         // var photos = [{
         //     nome: 'teste',
         //     url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
@@ -68,25 +70,35 @@ export class ControllerModelos {
     }
 
     addModelo() {
-        console.log(DBModel);
 
-        //DBModel.getConnection().then(connection => console.log(connection));
+        // DBModel.getConnection().then(
+        //     connection => new ModelosDAO(connection).addModelos(this._criarModelo())
+        // ).catch(error => console.log(error));
 
-        this._lista.adiciona(this._criarModelo());
-        this._view.update(this._lista);
+        DBModel.getConnection().then(connection => {
+
+            new ModelosDAO(connection).addModelos(this._criarModelo());
+            this._lista.adiciona(this._criarModelo());
+            this._view.update(this._lista);
+
+        }).catch(error => { 
+            console.log(error);
+        });
+
+        
     };
 
     _criarModelo() {
        
 
         let m = new ModelModelos(
-            this._nome.value,
-            this._idade.value,
-            this._descricao.value,
+            this._nome,
+            this._idade,
+            this._descricao,
             this._getImage(),
             this.servicos()
         );
-        
+        console.log(m);
         return m;
     };
 
