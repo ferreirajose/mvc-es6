@@ -2,6 +2,7 @@ import { ListaModelos, ModelModelos }   from  '../model/index';
 import { DBModel }                      from  '../services/index';
 import { ModelosView }                  from  '../view/index';
 import { ModelosDAO }                   from  '../dao/index';
+import { DateConverte }                 from  '../helpers/index';
 
 export class ControllerModelos {
     
@@ -17,6 +18,7 @@ export class ControllerModelos {
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
         
         this._lista = new ListaModelos();
+        this._date =  new DateConverte();
 
         this._view = new ModelosView(this._$('#view'));
         this._view.update(this._lista);
@@ -93,7 +95,7 @@ export class ControllerModelos {
 
         let m = new ModelModelos(
             this._nome,
-            this._idade,
+            this._date.stringToDate(this._idade),
             this._descricao,
             this._getImage(),
             this.servicos()

@@ -1,8 +1,8 @@
 
 export var selector = (function(elem){
-
+    
     _unique: function(){
-        return document.querySelector(elem);
+        $ = document.querySelector.bind(document);
     }
 
     _mult: function(){
@@ -10,8 +10,11 @@ export var selector = (function(elem){
     }
 
     return{
-        unique:_unique,
-        mult: _mult
+        $u: _unique,
+        $m: _mult
     }
-    
+
 })();
+
+
+$j('#div')
