@@ -43,9 +43,7 @@ export class ControllerModelos {
         var inp = this._foto;
         var photos = [];
         var url; 
-        console.log(inp.files.length);
-        console.log(inp.files);
-
+        
         for (var i = 0; i < inp.files.length; ++i) {
             var obj = {};
             obj.name= inp.files.item(i).name;
@@ -72,11 +70,6 @@ export class ControllerModelos {
     }
 
     addModelo() {
-
-        // DBModel.getConnection().then(
-        //     connection => new ModelosDAO(connection).addModelos(this._criarModelo())
-        // ).catch(error => console.log(error));
-
         DBModel.getConnection().then(connection => {
 
             new ModelosDAO(connection).addModelos(this._criarModelo());
@@ -85,14 +78,11 @@ export class ControllerModelos {
 
         }).catch(error => { 
             console.log(error);
-        });
-
-        
+        });        
     };
 
     _criarModelo() {
-       
-
+    
         let m = new ModelModelos(
             this._nome,
             this._date.stringToDate(this._idade),
