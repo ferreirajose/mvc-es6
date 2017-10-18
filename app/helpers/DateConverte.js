@@ -2,13 +2,11 @@ export class DateConverte {
     
     constructor(){}
 
-    stringToDate(string){
-        console.log(string);
+    static stringToDate(string){
         if(typeof string == 'string'){
             let date = string.split('-');
             //new Date(year, month, day, hours, minutes, seconds, milliseconds)
             let newDate = new Date(date[0], date[1], date[2]);
-            console.log(newDate);
             return newDate;
 
         }else{
@@ -16,8 +14,7 @@ export class DateConverte {
         }
     }
 
-    dateToString(val){
-        console.log(val);
+    static dateToString(val){
         if(val instanceof Date){
             var data = new Date(val);
             let string = data.getDate() + "/" + (data.getMonth() < 9 ? '0': '') + (data.getMonth()+1) + "/"+  data.getFullYear();

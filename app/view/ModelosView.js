@@ -5,7 +5,6 @@ export class ModelosView extends View {
     
     constructor(elemento) {
         super(elemento);
-        this._date = new DateConverte();
     }
 
     template(model) {
@@ -39,7 +38,7 @@ export class ModelosView extends View {
                     <div class="card-body text-center">
                         <!--Title-->
                         <h4 class="card-title"><strong>${modelo.getNome}</strong></h4>
-                        <h5>Data: ${this._date.dateToString(modelo.getIdade)}</h5>
+                        <h5>Data: ${DateConverte.dateToString(modelo.getIdade)}</h5>
     
                         <p class="card-text">${modelo.getDescricao}</p>
                         

@@ -9,6 +9,6 @@ btn.addEventListener('click', function(e){
     e.preventDefault;  
     let modelo = new ControllerModelos();    
     modelo.addModelo();
-    form.reset();    
+    //form.reset();    
 });
 

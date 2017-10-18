@@ -1,9 +1,9 @@
 export class ModelModelos{
 
-    constructor(nome, idade, descricao, foto, listaServicos){
+    constructor(nome, idade, descricao, listafotos, listaServicos){
         this._nome       = nome;
         this._idade      = idade;
-        this._foto       = foto;
+        this._fotos      = listafotos;
         this._descricao  = descricao;
         this._servicos   = listaServicos;
     };
@@ -17,7 +17,8 @@ export class ModelModelos{
     };
 
     get getFoto(){
-        return this._foto;
+        //return this._foto;
+        return [].concat(this._fotos);
     };
 
     get getDescricao(){
@@ -38,8 +39,8 @@ export class ModelModelos{
         this._idade = idade;
     };
 
-    set setFoto(foto){
-        this._foto = foto;
+    set setFoto(listafotos){
+        this._fotos.push(listafotos);
     };
 
     set setDescricao(descricao){

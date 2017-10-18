@@ -6,7 +6,7 @@ export class ModelosDAO{
     }
 
     addModelos(modelo){
-        
+        console.log(modelo)
         let promise = new Promise((resolve, reject) => {
 
             let transaction = this._connection.transaction([this._store], 'readwrite');

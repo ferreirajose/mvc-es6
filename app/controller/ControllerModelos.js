@@ -12,13 +12,11 @@ export class ControllerModelos {
 
         this._nome = this._$('#nome').value;
         this._idade = this._$('#idade').value;
-        this._foto = this._$('#foto');
+        //this._foto = this._$('#foto');
 
         this._descricao = this._$('#descricao').value;
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
-        
         this._lista = new ListaModelos();
-        this._date =  new DateConverte();
 
         this._view = new ModelosView(this._$('#view'));
         this._view.update(this._lista);
@@ -39,29 +37,29 @@ export class ControllerModelos {
     };
 
     _getImage() {
-
-        var inp = this._foto;
+        var inp = document.getElementById('foto');
+        //console.log(inp.files);
         var photos = [];
-        var url; 
-        
         for (var i = 0; i < inp.files.length; ++i) {
             var obj = {};
             obj.name= inp.files.item(i).name;
-
             var reader = new FileReader();
-            
             reader.onload = function (e) {
                 obj.base64 = reader.result;
                 photos.push(obj);
+                //reader = null; //deallocate
+                // if(i===inp.files.length-1)
+                //     callback(photos);
             };
-
             reader.readAsDataURL(inp.files.item(i));        
         }
-
+       
         return photos;
+        
     }
 
     addModelo() {
+           // console.log(this._criarModelo());
         DBModel.getConnection().then(connection => {
 
             new ModelosDAO(connection).addModelos(this._criarModelo());
@@ -74,16 +72,17 @@ export class ControllerModelos {
     };
 
     _criarModelo() {
-    
-        let m = new ModelModelos(
+       // console.log(this._getImage());
+
+        var m = new ModelModelos(
             this._nome,
-            this._date.stringToDate(this._idade),
+            DateConverte.stringToDate(this._idade),
             this._descricao,
             this._getImage(),
             this.servicos()
         );
     
-        console.log(m);
+       // console.log(m);
         return m;
     };
 
