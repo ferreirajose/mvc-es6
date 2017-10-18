@@ -53,20 +53,12 @@ export class ControllerModelos {
             reader.onload = function (e) {
                 obj.base64 = reader.result;
                 photos.push(obj);
-               
             };
 
             reader.readAsDataURL(inp.files.item(i));        
         }
 
-        return url = 'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg';
-        // var photos = [{
-        //     nome: 'teste',
-        //     url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
-        // }];
-        
-        // return photos;
-        
+        return photos;
     }
 
     addModelo() {
@@ -90,6 +82,7 @@ export class ControllerModelos {
             this._getImage(),
             this.servicos()
         );
+    
         console.log(m);
         return m;
     };

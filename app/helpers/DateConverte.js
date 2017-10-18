@@ -3,10 +3,12 @@ export class DateConverte {
     constructor(){}
 
     stringToDate(string){
+        console.log(string);
         if(typeof string == 'string'){
             let date = string.split('-');
-            let newDate = new Date(date[2], date[1], date[0]);
-
+            //new Date(year, month, day, hours, minutes, seconds, milliseconds)
+            let newDate = new Date(date[0], date[1], date[2]);
+            console.log(newDate);
             return newDate;
 
         }else{
@@ -18,7 +20,7 @@ export class DateConverte {
         console.log(val);
         if(val instanceof Date){
             var data = new Date(val);
-            let string = data.getDate() + "/" + (date.getMonth() < 9 ? '0': '') + (date.getMonth()+1) + "/"+  data.getFullYear();
+            let string = data.getDate() + "/" + (data.getMonth() < 9 ? '0': '') + (data.getMonth()+1) + "/"+  data.getFullYear();
             return string;
         }else{
             console.log('Não é um Data Valida');
