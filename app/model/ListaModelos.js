@@ -4,10 +4,11 @@ export class ListaModelos{
     }   
 
     adiciona(modelo){
+        console.log(modelo);
         this.modelos.push(modelo);
     };
 
-    get getModelos(){
+    getModelos(){
         return [].concat(this.modelos);
     };
 

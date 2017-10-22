@@ -12,7 +12,6 @@ export class ControllerModelos {
 
         this._nome = this._$('#nome').value;
         this._idade = this._$('#idade').value;
-        //this._foto = this._$('#foto');
 
         this._descricao = this._$('#descricao').value;
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
@@ -20,6 +19,7 @@ export class ControllerModelos {
 
         this._view = new ModelosView(this._$('#view'));
         this._view.update(this._lista);
+        
     };
 
 
@@ -59,7 +59,6 @@ export class ControllerModelos {
     }
 
     addModelo() {
-           // console.log(this._criarModelo());
         DBModel.getConnection().then(connection => {
 
             new ModelosDAO(connection).addModelos(this._criarModelo());
@@ -72,8 +71,6 @@ export class ControllerModelos {
     };
 
     _criarModelo() {
-       // console.log(this._getImage());
-
         var m = new ModelModelos(
             this._nome,
             DateConverte.stringToDate(this._idade),
@@ -81,21 +78,31 @@ export class ControllerModelos {
             this._getImage(),
             this.servicos()
         );
-    
-       // console.log(m);
         return m;
     };
 
-
     getList() {
-        return this._lista.getModelos;
+        
+        DBModel.getConnection().then(connection => {
+            new ModelosDAO(connection).listModelos().then(modelos => {
+                
+                modelos.forEach(modelo => {
+                    this._lista.adiciona(modelo);
+                    this._view.update(this._lista);
+                }).catch(error => {
+                    console.log(`Error: ${error} na lista`);
+                });
+
+            });
+
+        }).catch(error => {
+            console.log(error);
+        });
     };
-
-
 }
 
 
-var foto = [{
-  nome: 'teste',
-  url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
-}];
+// var foto = [{
+//   nome: 'teste',
+//   url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
+// }];
