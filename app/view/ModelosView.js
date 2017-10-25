@@ -23,11 +23,11 @@ export class ModelosView extends View {
 
         let template = `
 
-            ${model.modelos.map(modelo => `
+            ${model.modelos.map(modelo =>`
                 <div class="card card-cascade">
                     <!--Card image-->
                     <div class="view overlay hm-white-slight">
-                        <img src="${modelo.getFoto}" class="img-fluid" alt="">
+                        <img src="${modelo.getFoto[0].url}" class="img-fluid" alt="${modelo.getFoto[0].nome}">
                         <a>
                             <div class="mask waves-effect waves-light"></div>
                         </a>

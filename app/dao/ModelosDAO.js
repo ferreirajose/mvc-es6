@@ -8,15 +8,15 @@ export class ModelosDAO{
     }
 
     addModelos(modelo){
-        console.log(modelo)
         let promise = new Promise((resolve, reject) => {
             //solicitando abertura de transação, para ler e escrever
             let transaction = this._connection.transaction([this._store], 'readwrite');
             // criando store = table, semelhate a criação de uma table em SQL;
             let store =  transaction.objectStore(this._store);
-    
+            console.log(modelo);
+            console.log(modelo._fotos.length);
+            
             let request = store.add(modelo);
-    
                 request.onsuccess = e => {
                     console.log('Modelos salva com sucesso');
                     resolve(e.target.result);
@@ -53,7 +53,7 @@ export class ModelosDAO{
                             dado._nome,
                             dado._idade,
                             dado._descricao,
-                            dado._foto,
+                            dado._fotos,
                             dado._servicos
                         )
                     )
@@ -62,7 +62,7 @@ export class ModelosDAO{
 
                 }else{
                     // quando o ponteiro for null, o resolve() vai retornar um array com valores do curso, um array vazio que vai ser passado por resolve()
-                    console.log(modelos);
+                   // console.log(modelos);
                     resolve(modelos);
                 }
             };

@@ -40,25 +40,34 @@ export class ControllerModelos {
         var inp = document.getElementById('foto');
         //console.log(inp.files);
         var photos = [];
+        var obj = {};
         for (var i = 0; i < inp.files.length; ++i) {
-            var obj = {};
+           
             obj.name= inp.files.item(i).name;
             var reader = new FileReader();
             reader.onload = function (e) {
                 obj.base64 = reader.result;
                 photos.push(obj);
-                //reader = null; //deallocate
-                // if(i===inp.files.length-1)
-                //     callback(photos);
-            };
-            reader.readAsDataURL(inp.files.item(i));        
-        }
+                reader = null; //deallocate
+                if(i===inp.files.length-1)
+                    callback(photos);
        
-        return photos;
+            };
+            reader.readAsDataURL(inp.files.item(i));  
+          
+        }
+        
+        var photos = [{
+  nome: 'teste',
+  url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
+}];
+      return photos;
         
     }
 
     addModelo() {
+      ///  console.log(this._getImage().length);
+
         DBModel.getConnection().then(connection => {
 
             new ModelosDAO(connection).addModelos(this._criarModelo());
@@ -80,12 +89,13 @@ export class ControllerModelos {
         );
         return m;
     };
-
+    
     getList() {
         
         DBModel.getConnection().then(connection => {
             new ModelosDAO(connection).listModelos().then(modelos => {
-                
+                console.log(modelos);
+
                 modelos.forEach(modelo => {
                     this._lista.adiciona(modelo);
                     this._view.update(this._lista);
@@ -102,7 +112,7 @@ export class ControllerModelos {
 }
 
 
-// var foto = [{
+// var photos = [{
 //   nome: 'teste',
 //   url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
 // }];
