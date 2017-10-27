@@ -1,6 +1,6 @@
 import { ListaModelos, ModelModelos }   from  '../model/index';
 import { DBModel }                      from  '../services/index';
-import { ModelosView }                  from  '../view/index';
+import { ModelosView, MensagemView }    from  '../view/index';
 import { ModelosDAO }                   from  '../dao/index';
 import { DateConverte }                 from  '../helpers/index';
 
@@ -15,10 +15,14 @@ export class ControllerModelos {
 
         this._descricao = this._$('#descricao').value;
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
-        this._lista = new ListaModelos();
 
+        this._lista = new ListaModelos();
         this._view = new ModelosView(this._$('#view'));
         this._view.update(this._lista);
+
+        this._mensagem = new Mensagem();
+        this._mensagemView = new MensagemView($('#mensagemView'));
+        this._mensagemView.update(this._mensagem);
         
     };
 
@@ -74,6 +78,9 @@ export class ControllerModelos {
             this._lista.adiciona(this._criarModelo());
             this._view.update(this._lista);
 
+            this._mensagem.texto = 'Negociação adicionada com sucesso';
+            this._mensagemView.update(this._mensagem);
+            
         }).catch(error => { 
             console.log(error);
         });        
@@ -96,12 +103,17 @@ export class ControllerModelos {
             new ModelosDAO(connection).listModelos().then(modelos => {
                 console.log(modelos);
 
-                modelos.forEach(modelo => {
-                    this._lista.adiciona(modelo);
-                    this._view.update(this._lista);
-                }).catch(error => {
-                    console.log(`Error: ${error} na lista`);
-                });
+                if(modelos.length > 0){
+                    modelos.forEach(modelo => {
+                        this._lista.adiciona(modelo);
+                        this._view.update(this._lista);
+                    }).catch(error => {
+                        console.log(`Error: ${error} na lista`);
+                    });
+                }else{
+                    this._mensagem.texto = 'Não há Registros diponiveis';
+                    this._mensagemView.update(this._mensagem);
+                }
 
             });
 

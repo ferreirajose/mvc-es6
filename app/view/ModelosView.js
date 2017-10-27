@@ -23,44 +23,44 @@ export class ModelosView extends View {
 
         let template = `
 
-            ${model.modelos.map(modelo =>`
-                <div class="card card-cascade">
-                    <!--Card image-->
-                    <div class="view overlay hm-white-slight">
-                        <img src="${modelo.getFoto[0].url}" class="img-fluid" alt="${modelo.getFoto[0].nome}">
-                        <a>
-                            <div class="mask waves-effect waves-light"></div>
-                        </a>
-                    </div>
-                    <!--/.Card image-->
-    
-                    <!--Card content-->
-                    <div class="card-body text-center">
-                        <!--Title-->
-                        <h4 class="card-title"><strong>${modelo.getNome}</strong></h4>
-                        <h5>Data: ${DateConverte.dateToString(modelo.getIdade)}</h5>
-    
-                        <p class="card-text">${modelo.getDescricao}</p>
-                        
-                        <!--Facebook-->
-                        <a type="button" class="btn-floating btn-small btn-fb waves-effect waves-light"><i class="fa fa-facebook"></i></a>
-                        <!--Twitter-->
-                        <a type="button" class="btn-floating btn-small btn-tw waves-effect waves-light"><i class="fa fa-twitter"></i></a>
-                        <!--Google +-->
-                        <a type="button" class="btn-floating btn-small btn-dribbble waves-effect waves-light"><i class="fa fa-dribbble"></i></a>
-
-                        <ul>
-                            ${modelo.getServicos.map(servico => `
-                                <li>
-                                    <span class="label">${servico.nome}</span>
-                                    <span class="label label-default">${servico.valor}</span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    <!--/.Card content-->
+        ${model.modelos.map(modelo =>`
+            <div class="card card-cascade">
+                <!--Card image-->
+                <div class="view overlay hm-white-slight">
+                    <img src="${modelo.getFoto[0].url}" class="img-fluid" alt="${modelo.getFoto[0].nome}">
+                    <a>
+                        <div class="mask waves-effect waves-light"></div>
+                    </a>
                 </div>
-            `).join('')}`;
+                <!--/.Card image-->
+
+                <!--Card content-->
+                <div class="card-body text-center">
+                    <!--Title-->
+                    <h4 class="card-title"><strong>${modelo.getNome}</strong></h4>
+                    <h5>Data: ${DateConverte.dateToString(modelo.getIdade)}</h5>
+
+                    <p class="card-text">${modelo.getDescricao}</p>
+                    
+                    <!--Facebook-->
+                    <a type="button" class="btn-floating btn-small btn-fb waves-effect waves-light"><i class="fa fa-facebook"></i></a>
+                    <!--Twitter-->
+                    <a type="button" class="btn-floating btn-small btn-tw waves-effect waves-light"><i class="fa fa-twitter"></i></a>
+                    <!--Google +-->
+                    <a type="button" class="btn-floating btn-small btn-dribbble waves-effect waves-light"><i class="fa fa-dribbble"></i></a>
+
+                    <ul>
+                        ${modelo.getServicos.map(servico => `
+                            <li>
+                                <span class="label">${servico.nome}</span>
+                                <span class="label label-default">${servico.valor}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+                <!--/.Card content-->
+            </div>
+        `).join('')}`;
 
         return template;
     };
