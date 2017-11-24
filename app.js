@@ -15,7 +15,7 @@ btn.addEventListener('click', function(e){
 window.addEventListener("load", function (event){
     let modelo = new ControllerModelos();
     modelo.getList();
-    modelo.getImage();
+    modelo._getImage();
 });
 
 // let input = document.querySelector('#foto');

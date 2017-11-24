@@ -15,11 +15,11 @@
 //     }
 
 // })();
-
+// Vendaecia2016@
 
 // $j('#div')
 
-export const z = (selector, context = document) => {
+export var z = (selector, context = document) => {
     const regex = /^#/g;   
     let ele;
     if(regex.test(selector[0])){

@@ -47,18 +47,12 @@ export class ControllerModelos {
             var reader = new FileReader();
             reader.onload = callback;
             reader.readAsDataURL(file);
-            
         };
-
-        var obj = {};
         
         this._$('#foto').addEventListener("change", function (event){ 
             
-            readFile(this.files[0], function(e) {
-                obj.base64 = e.target.result;
-                
+            readFile(this.files[0], function(e) {                
                 localStorage.setItem('photos', e.target.result);  
-                
             });
             
         });
@@ -74,20 +68,48 @@ export class ControllerModelos {
            
     //         obj.name= inp.files.item(i).name;
     //         var reader = new FileReader();
-    //         reader.onload = function (e) {
+    //         reader.onload = (e) => {
     //             obj.base64 = reader.result;
 
     //             reader = null; //deallocate
     //             //if(i===inp.files.length-1)
     //                 //callback(photos);
-    //                 localStorage.setItem('photos', obj);
+                    
        
     //         };
     //         reader.readAsDataURL(inp.files.item(i));  
-          
+    //         localStorage.setItem('photos', obj);
     //     }
         
     // }
+
+    _getImage() {
+        var inp = this._$('#foto');
+        //console.log(inp.files);
+        var photos = [];
+        var obj = {};
+        inp.addEventListener("change", function (event){ 
+            for (var i = 0; i < inp.files.length; ++i) {
+                
+                 obj.name= inp.files.item(i).name;
+                 var reader = new FileReader();
+                 reader.onload = (e) => {
+                     obj.base64 = reader.result;
+                    console.log(obj);
+                     reader = null; //deallocate
+                     //if(i===inp.files.length-1)
+                         //callback(photos);
+                         localStorage.setItem('photos', obj);        
+            
+                 };
+                 reader.readAsDataURL(inp.files.item(i));  
+                 
+             }
+        });
+      
+        
+        
+    }
 
     addModelo() {
     
