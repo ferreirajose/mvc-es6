@@ -3,12 +3,10 @@
 import { ControllerModelos } from '../mvc-es6/app/controller/index';
 
 var btn = document.querySelector("#btn-save");
-var form = document.querySelector("#form-modelos");
-
 
 btn.addEventListener('click', function(e){
 
-    e.preventDefault;  
+    e.preventDefault();  
     let modelo = new ControllerModelos();
     modelo.addModelo();    
     
@@ -17,7 +15,26 @@ btn.addEventListener('click', function(e){
 window.addEventListener("load", function (event){
     let modelo = new ControllerModelos();
     modelo.getList();
+    modelo.getImage();
 });
 
+// let input = document.querySelector('#foto');
+
+// input.addEventListener("change", function (event){ 
+
+//     readFile(this.files[0], function(e) {
+//         obj.base64 = e.target.result;
+           
+//         localStorage.setItem('photos', e.target.result);  
+//         console.log(photos);
+//     });
+    
+// });
 
 
+// function readFile(file, callback){
+//     var reader = new FileReader();
+//     reader.onload = callback
+//     reader.readAsDataURL(file);
+    
+// }

@@ -8,6 +8,7 @@ export class ModelosView extends View {
     }
 
     template(model) {
+       // console.log(model);
         /*
         gambiarra para verificar se model.modelos não é 'undefined', 
         se model.modelos for 'undefined' model.modelos recebe um array vazio
@@ -27,7 +28,7 @@ export class ModelosView extends View {
             <div class="card card-cascade">
                 <!--Card image-->
                 <div class="view overlay hm-white-slight">
-                    <img src="${modelo.getFoto[0].url}" class="img-fluid" alt="${modelo.getFoto[0].nome}">
+                    <img src="${modelo.getFoto}" class="img-fluid" alt="">
                     <a>
                         <div class="mask waves-effect waves-light"></div>
                     </a>
@@ -63,6 +64,6 @@ export class ModelosView extends View {
         `).join('')}`;
 
         return template;
-    };
+    }
 
 }

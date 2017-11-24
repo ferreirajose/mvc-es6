@@ -1,5 +1,5 @@
 export * from './ModelosView';
-export * from './View';
 export * from './MensagemView';
+export * from './View';
 
 

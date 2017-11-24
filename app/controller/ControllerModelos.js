@@ -1,4 +1,4 @@
-import { ListaModelos, ModelModelos }   from  '../model/index';
+import { ListaModelos, ModelModelos, Mensagem }   from  '../model/index';
 import { DBModel }                      from  '../services/index';
 import { ModelosView, MensagemView }    from  '../view/index';
 import { ModelosDAO }                   from  '../dao/index';
@@ -12,7 +12,8 @@ export class ControllerModelos {
 
         this._nome = this._$('#nome').value;
         this._idade = this._$('#idade').value;
-
+        this._photos = localStorage.getItem('photos');
+        this._file = this._$('#foto');
         this._descricao = this._$('#descricao').value;
         this._servicos = document.querySelectorAll('input[name=servicos]:checked');
 
@@ -21,7 +22,7 @@ export class ControllerModelos {
         this._view.update(this._lista);
 
         this._mensagem = new Mensagem();
-        this._mensagemView = new MensagemView($('#mensagemView'));
+        this._mensagemView = new MensagemView(this._$('#mensagemView'));
         this._mensagemView.update(this._mensagem);
         
     };
@@ -40,38 +41,56 @@ export class ControllerModelos {
         return listaServicos;
     };
 
-    _getImage() {
-        var inp = document.getElementById('foto');
-        //console.log(inp.files);
-        var photos = [];
-        var obj = {};
-        for (var i = 0; i < inp.files.length; ++i) {
-           
-            obj.name= inp.files.item(i).name;
+    getImage() {
+
+        var readFile = function(file, callback){
             var reader = new FileReader();
-            reader.onload = function (e) {
-                obj.base64 = reader.result;
-                photos.push(obj);
-                reader = null; //deallocate
-                if(i===inp.files.length-1)
-                    callback(photos);
-       
-            };
-            reader.readAsDataURL(inp.files.item(i));  
-          
-        }
+            reader.onload = callback;
+            reader.readAsDataURL(file);
+            
+        };
+
+        var obj = {};
         
-        var photos = [{
-  nome: 'teste',
-  url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
-}];
-      return photos;
-        
+        this._$('#foto').addEventListener("change", function (event){ 
+            
+            readFile(this.files[0], function(e) {
+                obj.base64 = e.target.result;
+                
+                localStorage.setItem('photos', e.target.result);  
+                
+            });
+            
+        });
     }
+        
+
+    // _getImage() {
+    //     var inp = this._$('#foto');
+    //     //console.log(inp.files);
+    //     var photos = [];
+    //     var obj = {};
+    //     for (var i = 0; i < inp.files.length; ++i) {
+           
+    //         obj.name= inp.files.item(i).name;
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             obj.base64 = reader.result;
+
+    //             reader = null; //deallocate
+    //             //if(i===inp.files.length-1)
+    //                 //callback(photos);
+    //                 localStorage.setItem('photos', obj);
+       
+    //         };
+    //         reader.readAsDataURL(inp.files.item(i));  
+          
+    //     }
+        
+    // }
 
     addModelo() {
-      ///  console.log(this._getImage().length);
-
+    
         DBModel.getConnection().then(connection => {
 
             new ModelosDAO(connection).addModelos(this._criarModelo());
@@ -87,13 +106,15 @@ export class ControllerModelos {
     };
 
     _criarModelo() {
+        
         var m = new ModelModelos(
             this._nome,
             DateConverte.stringToDate(this._idade),
             this._descricao,
-            this._getImage(),
+            this._photos,
             this.servicos()
         );
+        
         return m;
     };
     
@@ -101,30 +122,20 @@ export class ControllerModelos {
         
         DBModel.getConnection().then(connection => {
             new ModelosDAO(connection).listModelos().then(modelos => {
-                console.log(modelos);
+                //console.log(modelos);
 
                 if(modelos.length > 0){
                     modelos.forEach(modelo => {
                         this._lista.adiciona(modelo);
                         this._view.update(this._lista);
-                    }).catch(error => {
-                        console.log(`Error: ${error} na lista`);
                     });
                 }else{
                     this._mensagem.texto = 'Não há Registros diponiveis';
                     this._mensagemView.update(this._mensagem);
                 }
-
             });
-
         }).catch(error => {
-            console.log(error);
+            console.log(`Error: ${error} na lista`);
         });
     };
 }
-
-
-// var photos = [{
-//   nome: 'teste',
-//   url:'https://assets.vogue.com/photos/589151c258aa89a00d542b38/master/pass/00-5-things-emma-stone.jpg'  
-// }];

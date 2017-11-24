@@ -14,11 +14,11 @@ export class ModelosDAO{
             // criando store = table, semelhate a criação de uma table em SQL;
             let store =  transaction.objectStore(this._store);
             console.log(modelo);
-            console.log(modelo._fotos.length);
-            
+            console.log(modelo._fotos);
             let request = store.add(modelo);
                 request.onsuccess = e => {
                     console.log('Modelos salva com sucesso');
+                    localStorage.removeItem("photos");
                     resolve(e.target.result);
                 };
     
@@ -30,7 +30,7 @@ export class ModelosDAO{
 
         return promise;
         
-    };
+    }
 
     listModelos(){
 
@@ -56,7 +56,7 @@ export class ModelosDAO{
                             dado._fotos,
                             dado._servicos
                         )
-                    )
+                    );
 
                     ponteiro.continue();
 
@@ -76,10 +76,10 @@ export class ModelosDAO{
 
         return promise;
         
-    };
+    }
 
     removeModelos(){
         
-    };
+    }
 
 }
