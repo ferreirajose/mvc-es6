@@ -13,8 +13,7 @@ export class ModelosDAO{
             let transaction = this._connection.transaction([this._store], 'readwrite');
             // criando store = table, semelhate a criação de uma table em SQL;
             let store =  transaction.objectStore(this._store);
-            console.log(modelo);
-            console.log(modelo._fotos);
+            
             let request = store.add(modelo);
                 request.onsuccess = e => {
                     console.log('Modelos salva com sucesso');
@@ -53,7 +52,7 @@ export class ModelosDAO{
                             dado._nome,
                             dado._idade,
                             dado._descricao,
-                            dado._fotos,
+                            JSON.parse(dado._fotos),
                             dado._servicos
                         )
                     );

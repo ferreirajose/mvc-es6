@@ -41,22 +41,22 @@ export class ControllerModelos {
         return listaServicos;
     };
 
-    getImage() {
+    // getImage() {
 
-        var readFile = function(file, callback){
-            var reader = new FileReader();
-            reader.onload = callback;
-            reader.readAsDataURL(file);
-        };
+    //     var readFile = function(file, callback){
+    //         var reader = new FileReader();
+    //         reader.onload = callback;
+    //         reader.readAsDataURL(file);
+    //     };
         
-        this._$('#foto').addEventListener("change", function (event){ 
+    //     this._$('#foto').addEventListener("change", function (event){ 
             
-            readFile(this.files[0], function(e) {                
-                localStorage.setItem('photos', e.target.result);  
-            });
+    //         readFile(this.files[0], function(e) {                
+    //             localStorage.setItem('photos', e.target.result);  
+    //         });
             
-        });
-    }
+    //     });
+    // }
         
 
     // _getImage() {
@@ -84,30 +84,40 @@ export class ControllerModelos {
     // }
 
     _getImage() {
-        var inp = this._$('#foto');
-        //console.log(inp.files);
-        var photos = [];
-        var obj = {};
-        inp.addEventListener("change", function (event){ 
+        let inp = this._$('#foto');
+        let obj = {};
+        let reader = new FileReader();
+
+        inp.addEventListener("change", function (event){
+            
+            // inp.files.forEach(function(value, index){
+            //     obj.name= inp.files.item(index).name;
+                
+            //     reader.onload = (e) => {
+            //        obj.base64 = reader.result;
+            //        console.log(obj);
+            //        reader = null; //deallocate
+                    
+            //        localStorage.setItem('photos', JSON.stringify(obj));        
+           
+            //     };
+            //     reader.readAsDataURL(inp.files.item(index));  
+            // });
+
             for (var i = 0; i < inp.files.length; ++i) {
                 
                  obj.name= inp.files.item(i).name;
-                 var reader = new FileReader();
+                 
                  reader.onload = (e) => {
-                     obj.base64 = reader.result;
-                    console.log(obj);
-                     reader = null; //deallocate
-                     //if(i===inp.files.length-1)
-                         //callback(photos);
-                         localStorage.setItem('photos', obj);        
+                    obj.base64 = reader.result;
+                    reader = null; //deallocate
+                     
+                    localStorage.setItem('photos', JSON.stringify(obj));        
             
                  };
                  reader.readAsDataURL(inp.files.item(i));  
-                 
              }
         });
-      
-        
         
     }
 

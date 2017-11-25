@@ -6,14 +6,17 @@ var btn = document.querySelector("#btn-save");
 
 btn.addEventListener('click', function(e){
 
-    e.preventDefault();  
+    e.preventDefault();
+
     let modelo = new ControllerModelos();
     modelo.addModelo();    
-    
+    modelo.getList();
 });
 
 window.addEventListener("load", function (event){
+    
     let modelo = new ControllerModelos();
+    
     modelo.getList();
     modelo._getImage();
 });

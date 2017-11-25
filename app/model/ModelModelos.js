@@ -17,8 +17,8 @@ export class ModelModelos{
     };
 
     get getFoto(){
-        //return this._foto;
-        return [].concat(this._fotos);
+        return this._fotos;
+        //return [].concat(this._fotos);
     };
 
     get getDescricao(){
